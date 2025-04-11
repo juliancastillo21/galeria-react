@@ -1,0 +1,35 @@
+.ReactGridGallery {
+  margin: 2rem auto;
+  position: relative;
+}
+
+.ReactGridGallery_tile {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.ReactGridGallery_tile:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+
+.ReactGridGallery_tile-viewport img {
+  transition: var(--transition);
+}
+
+.ReactGridGallery_tile:hover .ReactGridGallery_tile-viewport img {
+  filter: brightness(1.1);
+}
+
+.ReactGridGallery_tile-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.ReactGridGallery_tile-description {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
