@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Gallery from "./components/Gallery";
 import AddImagePage from "./components/AddImagePage";
-import "./styles/App.css";
 
 function App() {
   return (
