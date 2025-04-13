@@ -1,0 +1,211 @@
+.App {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--primary-light), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  padding: 0 1rem;
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+  animation: titleEnter 0.6s ease-out;
+}
+
+.add-image-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(45, 55, 72, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: formEnter 0.8s ease-out;
+}
+
+.form-group {
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 2px solid var(--gray-color);
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: rgba(26, 32, 44, 0.8);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(112, 72, 232, 0.15);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.form-group input:focus + label {
+  transform: translateY(-2px);
+  color: var(--primary-light);
+}
+
+.error-message {
+  color: var(--error-color);
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(252, 129, 129, 0.1);
+  border-left: 4px solid var(--error-color);
+  animation: shake 0.5s linear;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: 2px solid var(--gray-color);
+  color: var(--text-primary);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.add-button {
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
+  color: var(--text-primary);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(112, 72, 232, 0.3);
+}
+
+.add-button:hover {
+  background: linear-gradient(45deg, var(--primary-light), var(--primary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(112, 72, 232, 0.4);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+.add-button:disabled,
+.cancel-button:disabled {
+  background: var(--gray-color);
+  border-color: transparent;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.6;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes formEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+
+  .App h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .add-image-form {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.8rem;
+  }
+
+  .add-button,
+  .cancel-button {
+    width: 100%;
+    padding: 1rem;
+  }
+}

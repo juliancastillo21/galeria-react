@@ -14,14 +14,17 @@
   background: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
+  flex-direction: column;
+  text-align: center;
 }
 
 .gallery-header h1 {
-  margin: 0;
+  margin: 0 auto 1rem;
   background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  width: 100%;
 }
 
 .add-image-button {
@@ -36,6 +39,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin: 0 auto;
 }
 
 .add-image-button:hover {

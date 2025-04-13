@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/ImageForm.css";
+import "../styles/AddImagePage.css";
 
 function AddImagePage() {
   const navigate = useNavigate();
@@ -74,9 +74,9 @@ function AddImagePage() {
 
   return (
     <div className="App">
-      <h1 className="fade-in">Agregar Nueva Imagen</h1>
+      <h1 className="title">Agregar Nueva Imagen</h1>
       
-      <div className="add-image-form fade-in">
+      <div className="add-image-form">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="imageUrl">URL de la imagen:</label>
