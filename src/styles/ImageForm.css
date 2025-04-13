@@ -6,7 +6,7 @@
 
 .add-image-button {
   background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
-  color: white;
+  color: var(--text-primary);
   border: none;
   padding: 12px 24px;
   border-radius: var(--border-radius);
@@ -36,7 +36,7 @@
 }
 
 .add-image-form {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--bg-secondary);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-lg);
   transition: var(--transition);
@@ -58,6 +58,7 @@
 
 .form-header h2 {
   margin: 0;
+  color: var(--text-primary);
 }
 
 .close-button {
@@ -77,8 +78,8 @@
 }
 
 .close-button:hover {
-  color: var(--dark-color);
-  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .form-group {
@@ -90,7 +91,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: var(--dark-color);
+  color: var(--text-primary);
   transition: var(--transition);
 }
 
@@ -101,7 +102,8 @@
   border-radius: var(--border-radius);
   font-size: 1rem;
   transition: var(--transition);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .form-group input:focus {
@@ -116,7 +118,7 @@
   font-size: 0.9rem;
   padding: 10px;
   border-radius: var(--border-radius);
-  background-color: rgba(229, 62, 62, 0.1);
+  background-color: rgba(252, 129, 129, 0.1);
   border-left: 3px solid var(--error-color);
   animation: shake 0.5s linear;
 }
@@ -131,17 +133,17 @@
 .cancel-button {
   background-color: transparent;
   border: 1px solid var(--gray-color);
-  color: var(--dark-color);
+  color: var(--text-primary);
 }
 
 .cancel-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: var(--dark-color);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-primary);
 }
 
 .add-button {
   background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
-  color: white;
+  color: var(--text-primary);
   border: none;
   padding: 10px 20px;
   border-radius: var(--border-radius);
@@ -186,39 +188,4 @@
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-5px); }
   40%, 80% { transform: translateX(5px); }
-}
-
-/* Estilos para el modo oscuro */
-@media (prefers-color-scheme: dark) {
-  .add-image-form {
-    background: rgba(45, 55, 72, 0.9);
-  }
-  
-  .close-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .form-group label {
-    color: #f7fafc;
-  }
-  
-  .form-group input {
-    background-color: rgba(45, 55, 72, 0.8);
-    color: #f7fafc;
-    border-color: #4a5568;
-  }
-  
-  .error-message {
-    background-color: rgba(229, 62, 62, 0.2);
-  }
-  
-  .cancel-button {
-    color: #f7fafc;
-    border-color: #4a5568;
-  }
-  
-  .cancel-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #f7fafc;
-  }
 }

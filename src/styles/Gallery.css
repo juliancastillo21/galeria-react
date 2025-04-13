@@ -1,7 +1,7 @@
 .gallery-page {
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
 }
 
 .gallery-header {
@@ -11,14 +11,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
 }
 
 .gallery-header h1 {
   margin: 0;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -29,7 +29,7 @@
   align-items: center;
   gap: 0.5rem;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
+  color: var(--text-primary);
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
@@ -40,7 +40,7 @@
 
 .add-image-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .button-icon {
@@ -52,7 +52,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
 }
@@ -74,7 +74,7 @@
 
 .ReactGridGallery_tile:hover {
   transform: translateY(-5px) !important;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .ReactGridGallery_tile-viewport {
@@ -83,13 +83,13 @@
 }
 
 .ReactGridGallery_tile-description {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent) !important;
   padding: 1rem !important;
   font-family: 'Poppins', sans-serif !important;
 }
 
 .ReactGridGallery_tile-description span {
-  color: white !important;
+  color: var(--text-primary) !important;
   font-size: 0.9rem !important;
   font-weight: 500 !important;
 }
@@ -97,7 +97,7 @@
 .empty-gallery {
   text-align: center;
   padding: 3rem 1rem;
-  color: var(--gray-color);
+  color: var(--text-secondary);
 }
 
 .empty-gallery p {
@@ -107,7 +107,7 @@
 
 .add-first-image {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
+  color: var(--text-primary);
   border: none;
   padding: 1rem 2rem;
   border-radius: 8px;
@@ -118,7 +118,7 @@
 
 .add-first-image:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 @keyframes spin {
@@ -145,17 +145,4 @@
   .gallery-container {
     padding: 0.5rem;
   }
-}
-
-/* Estilos para modo oscuro */
-@media (prefers-color-scheme: dark) {
-  .gallery-page {
-    background: linear-gradient(135deg, #1a1a1a, #2d3748);
-  }
-
-  .gallery-header,
-  .gallery-container {
-    background: #2d3748;
-  }
-
 }
