@@ -14,17 +14,14 @@
   background: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
-  flex-direction: column;
-  text-align: center;
 }
 
 .gallery-header h1 {
-  margin: 0 auto 1rem;
+  margin: 0;
   background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  width: 100%;
 }
 
 .add-image-button {
@@ -39,17 +36,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 0 auto;
 }
 
 .add-image-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.button-icon {
-  font-size: 1.2rem;
-  line-height: 1;
+  box-shadow: var(--shadow-md);
 }
 
 .gallery-container {
@@ -61,41 +52,71 @@
   box-shadow: var(--shadow-md);
 }
 
-.grid-gallery-wrapper {
-  min-height: 300px;
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
-.ReactGridGallery {
-  margin: 0 !important;
-}
-
-.ReactGridGallery_tile {
-  border-radius: 8px !important;
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
   overflow: hidden;
-  transition: all 0.3s ease !important;
+  aspect-ratio: 1;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
-.ReactGridGallery_tile:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: var(--shadow-lg) !important;
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
-.ReactGridGallery_tile-viewport {
-  border-radius: 8px !important;
-  overflow: hidden;
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
 }
 
-.ReactGridGallery_tile-description {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent) !important;
-  padding: 1rem !important;
-  font-family: 'Poppins', sans-serif !important;
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
 }
 
-.ReactGridGallery_tile-description span {
-  color: var(--text-primary) !important;
-  font-size: 0.9rem !important;
-  font-weight: 500 !important;
+.gallery-item:hover .image-overlay {
+  transform: translateY(0);
+}
+
+.image-caption {
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.delete-button {
+  background: var(--error-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.delete-button:hover {
+  background: #e53e3e;
+  transform: translateY(-2px);
 }
 
 .empty-gallery {
@@ -104,30 +125,14 @@
   color: var(--text-secondary);
 }
 
-.empty-gallery p {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.add-first-image {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--text-primary);
-  border: none;
-  padding: 1rem 2rem;
+.error-message {
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-color);
+  padding: 1rem;
   border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-first-image:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  margin: 1rem auto;
+  max-width: 1200px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -139,14 +144,10 @@
     flex-direction: column;
     gap: 1rem;
     text-align: center;
-    padding: 1rem;
   }
 
-  .gallery-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .gallery-container {
-    padding: 0.5rem;
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
   }
 }

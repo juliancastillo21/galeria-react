@@ -10,97 +10,57 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3001;
 
-// Configuración de Multer
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, file.originalname)
 });
 
-const upload = multer({ 
-    storage: storage,
-    fileFilter: function (req, file, cb) {
-        // Validar que sea una imagen
-        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-            return cb(new Error('Solo se permiten archivos de imagen!'), false);
-        }
-        cb(null, true);
-    }
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    cb(null, extname);
+  }
 });
 
-// Middleware
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-
-// Configurar CORS manualmente
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 });
 
-// Almacenamiento de metadatos de imágenes
 let images = [];
 
-// Endpoints
-app.get('/api/images', async (req, res) => {
-    try {
-        res.json(images);
-    } catch (error) {
-        res.status(500).json({ message: 'Error al obtener las imágenes', error: error.message });
-    }
+app.get('/api/images', (req, res) => {
+  res.json(images);
 });
 
-app.post('/api/images', upload.single('image'), async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ message: 'No se ha proporcionado ninguna imagen' });
-        }
+app.post('/api/images', upload.single('image'), (req, res) => {
 
-        const newImage = {
-            src: `/uploads/${req.file.filename}`,
-            width: 800,
-            height: 600,
-            caption: req.body.caption || 'Nueva imagen',
-            isSelected: false,
-            thumbnailWidth: 320,
-            thumbnailHeight: 240,
-        };
+  const newImage = {
+    id: Date.now(),
+    name: req.file.originalname,
+    src: `/uploads/${req.file.filename}`,
+    caption: req.body.caption || 'Sin descripción'
+  };
 
-        images.push(newImage);
-        res.status(201).json(newImage);
-    } catch (error) {
-        res.status(500).json({ message: 'Error al guardar la imagen', error: error.message });
-    }
+  images.push(newImage);
+  res.status(201).json(newImage);
 });
 
-app.delete('/api/images/:index', async (req, res) => {
-    try {
-        const index = parseInt(req.params.index);
-        
-        if (index < 0 || index >= images.length) {
-            return res.status(404).json({ message: 'Imagen no encontrada' });
-        }
+app.delete('/api/images/:id', async (req) => {
+  const id = parseInt(req.params.id);
+  const imageIndex = images.findIndex(img => img.id === id);
 
-        // Eliminar el archivo físico
-        const image = images[index];
-        const filePath = path.join(__dirname, image.src);
-        await fs.unlink(filePath);
-
-        // Eliminar el registro
-        const deletedImage = images.splice(index, 1)[0];
-        res.json(deletedImage);
-    } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar la imagen', error: error.message });
-    }
+  const image = images[imageIndex];
+  await fs.unlink(path.join(__dirname, 'uploads', path.basename(image.src)));
+  images.splice(imageIndex, 1);
 });
 
-// Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
