@@ -71,6 +71,37 @@
   color: var(--primary-light);
 }
 
+.file-input {
+  padding: 0.8rem;
+  background-color: var(--bg-primary);
+  border: 2px dashed var(--gray-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: var(--primary-light);
+  background-color: rgba(112, 72, 232, 0.1);
+}
+
+.image-preview {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background-color: var(--bg-primary);
+  max-width: 100%;
+  height: 300px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
 .error-message {
   color: var(--error-color);
   margin: 1rem 0;

@@ -4,33 +4,36 @@ import "../styles/AddImagePage.css";
 
 function AddImagePage() {
   const navigate = useNavigate();
-  const [newImageUrl, setNewImageUrl] = useState("");
-  const [newImageCaption, setNewImageCaption] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageCaption, setImageCaption] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
 
-  const validateImageUrl = (url) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({
-          width: img.width,
-          height: img.height,
-          valid: true
-        });
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        setError('Por favor selecciona un archivo de imagen válido');
+        return;
+      }
+      setSelectedFile(file);
+      setError('');
+      
+      // Crear preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
       };
-      img.onerror = () => {
-        reject(new Error("La URL no corresponde a una imagen válida"));
-      };
-      img.src = url;
-    });
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!newImageUrl) {
-      setError("Por favor ingresa una URL de imagen válida");
+    if (!selectedFile) {
+      setError("Por favor selecciona una imagen");
       return;
     }
 
@@ -38,32 +41,19 @@ function AddImagePage() {
     setError("");
 
     try {
-      const imageDetails = await validateImageUrl(newImageUrl);
-      
-      const aspectRatio = imageDetails.width / imageDetails.height;
-      const thumbnailWidth = 320;
-      const thumbnailHeight = Math.round(thumbnailWidth / aspectRatio);
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('caption', imageCaption);
 
-      const newImage = {
-        src: newImageUrl,
-        width: imageDetails.width,
-        height: imageDetails.height,
-        caption: newImageCaption || `Nueva imagen`,
-        isSelected: false,
-        thumbnailWidth,
-        thumbnailHeight,
-      };
+      const response = await fetch('http://localhost:3001/api/images', {
+        method: 'POST',
+        body: formData,
+      });
 
-      // Obtener imágenes existentes del localStorage
-      const existingImages = JSON.parse(localStorage.getItem("galleryImages") || "[]");
-      
-      // Añadir la nueva imagen
-      const updatedImages = [...existingImages, newImage];
-      
-      // Guardar en localStorage
-      localStorage.setItem("galleryImages", JSON.stringify(updatedImages));
-      
-      // Redirigir a la página principal
+      if (!response.ok) {
+        throw new Error('Error al guardar la imagen');
+      }
+
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -74,30 +64,35 @@ function AddImagePage() {
 
   return (
     <div className="App">
-      <h1 className="title">Agregar Nueva Imagen</h1>
+      <h1 className="fade-in">Agregar Nueva Imagen</h1>
       
-      <div className="add-image-form">
+      <div className="add-image-form fade-in">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="imageUrl">URL de la imagen:</label>
+            <label htmlFor="image">Seleccionar imagen:</label>
             <input
-              type="url"
-              id="imageUrl"
-              value={newImageUrl}
-              onChange={(e) => setNewImageUrl(e.target.value)}
-              placeholder="https://ejemplo.com/imagen.jpg"
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleFileChange}
               disabled={isLoading}
-              autoFocus
+              className="file-input"
             />
           </div>
+
+          {preview && (
+            <div className="image-preview">
+              <img src={preview} alt="Preview" />
+            </div>
+          )}
           
           <div className="form-group">
             <label htmlFor="imageCaption">Descripción (opcional):</label>
             <input
               type="text"
               id="imageCaption"
-              value={newImageCaption}
-              onChange={(e) => setNewImageCaption(e.target.value)}
+              value={imageCaption}
+              onChange={(e) => setImageCaption(e.target.value)}
               placeholder="Descripción de la imagen"
               disabled={isLoading}
             />
@@ -117,9 +112,9 @@ function AddImagePage() {
             <button 
               type="submit" 
               className="add-button" 
-              disabled={isLoading}
+              disabled={isLoading || !selectedFile}
             >
-              {isLoading ? "Verificando imagen..." : "Agregar Imagen"}
+              {isLoading ? "Guardando imagen..." : "Agregar Imagen"}
             </button>
           </div>
         </form>
