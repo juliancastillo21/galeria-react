@@ -1,12 +1,68 @@
-# React + Vite
+# Galería de Imágenes con React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web para gestionar una galería de imágenes construida con React y Vite.
 
-Currently, two official plugins are available:
+## Requisitos Previos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (v14.0.0 o superior)
+- npm (v6.0.0 o superior)
 
-## Expanding the ESLint configuration
+## Dependencias Principales
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Dependencias de producción
+react            # Biblioteca principal de React
+react-dom        # Renderizado de React para web
+react-router-dom # Enrutamiento de la aplicación
+express          # Framework de Node.js para crear el servidor API
+multer           # Middleware para manejo de archivos multipart/form-data
+
+# Dependencias de desarrollo
+vite             # Herramienta de construcción y desarrollo
+@vitejs/plugin-react # Plugin de Vite para React
+```
+
+## Configuración del Proyecto
+
+1. Clona el repositorio:
+```bash
+git clone <url-del-repositorio>
+cd galeria-react
+```
+
+2. Instala las dependencias:
+```bash
+npm install
+```
+
+3. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+```
+
+4. Inicia el servidor(se corre en el puerto 3001):
+```bash
+node server.js
+```
+
+## Estructura del Proyecto
+
+```
+galeria-react/
+├── src/
+│   ├── components/     # Componentes de React
+│   ├── styles/        # Archivos CSS
+│   ├── App.jsx        # Componente principal
+│   └── main.jsx       # Punto de entrada
+├── server.js/          # Endpoint y logica 
+└── index.html        # HTML principal
+```
+
+## Características
+
+- Carga y visualización de imágenes
+- Formulario para agregar nuevas imágenes
+- Diseño responsive
+- Animaciones suaves
+- Vista previa de imágenes
+- Gestión de errores
